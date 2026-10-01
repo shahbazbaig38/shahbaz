@@ -65,8 +65,16 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-
-  // Sections marked with class="open" in HTML already have their content visible
+  // ===== ROTATING WORDS =====
+  const words = document.querySelectorAll('.rotating-word');
+  if (words.length > 1) {
+    let current = 0;
+    setInterval(() => {
+      words[current].classList.remove('active');
+      current = (current + 1) % words.length;
+      words[current].classList.add('active');
+    }, 3000);
+  }
 
   // ===== SCROLL PROGRESS BAR =====
   const progressBar = document.getElementById('scrollProgress');

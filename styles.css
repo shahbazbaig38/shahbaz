@@ -298,6 +298,26 @@ a:focus-visible, button:focus-visible {
   background-clip: text;
 }
 
+/* Rotating words — simple crossfade in place */
+.rotating-words {
+  display: inline-block;
+  position: relative;
+  min-width: 6ch;
+}
+.rotating-word {
+  display: inline-block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+  white-space: nowrap;
+}
+.rotating-word.active {
+  position: relative;
+  opacity: 1;
+}
+
 .hero-subtitle {
   margin-top: 22px;
   max-width: 58ch;
