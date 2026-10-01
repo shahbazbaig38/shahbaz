@@ -65,15 +65,38 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // ===== ROTATING WORDS =====
-  const words = document.querySelectorAll('.rotating-word');
-  if (words.length > 1) {
-    let current = 0;
+  // ===== ROTATING WORDS (SMOOTH ONE-BY-ONE FADE) =====
+  const rotatingWord = document.getElementById('rotatingWord');
+  if (rotatingWord) {
+    const words = [
+      'data pipelines',
+      'ML systems',
+      'AI solutions',
+      'ETL workflows',
+      'smart analytics'
+    ];
+    let currentIndex = 0;
+
     setInterval(() => {
-      words[current].classList.remove('active');
-      current = (current + 1) % words.length;
-      words[current].classList.add('active');
-    }, 3000);
+      // Step 1: Smoothly fade out current word and drift slightly upward
+      rotatingWord.classList.add('word-fade-out');
+
+      setTimeout(() => {
+        // Step 2: Switch to next word while completely invisible
+        currentIndex = (currentIndex + 1) % words.length;
+        rotatingWord.textContent = words[currentIndex];
+
+        // Step 3: Instantly reposition to start slightly below with no animation
+        rotatingWord.classList.remove('word-fade-out');
+        rotatingWord.classList.add('word-fade-prep');
+
+        // Force browser reflow so prep position is applied before transition
+        void rotatingWord.offsetWidth;
+
+        // Step 4: Smoothly fade in and settle into place
+        rotatingWord.classList.remove('word-fade-prep');
+      }, 450);
+    }, 3200);
   }
 
   // ===== SCROLL PROGRESS BAR =====

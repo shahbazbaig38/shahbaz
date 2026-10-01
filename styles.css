@@ -298,24 +298,29 @@ a:focus-visible, button:focus-visible {
   background-clip: text;
 }
 
-/* Rotating words — simple crossfade in place */
-.rotating-words {
+/* Hero rotating word — smooth one-by-one fade animation */
+.hero-rotating-word {
   display: inline-block;
-  position: relative;
-  min-width: 6ch;
-}
-.rotating-word {
-  display: inline-block;
-  position: absolute;
-  left: 0;
-  top: 0;
-  opacity: 0;
-  transition: opacity 0.8s ease;
+  background: var(--gradient-hero);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.45s cubic-bezier(0.25, 1, 0.5, 1), transform 0.45s cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: opacity, transform;
   white-space: nowrap;
 }
-.rotating-word.active {
-  position: relative;
-  opacity: 1;
+
+.hero-rotating-word.word-fade-out {
+  opacity: 0;
+  transform: translateY(-8px);
+}
+
+.hero-rotating-word.word-fade-prep {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: none !important;
 }
 
 .hero-subtitle {
